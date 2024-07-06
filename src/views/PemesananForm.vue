@@ -3,17 +3,21 @@ import { defineEmits, ref } from "vue";
 
 const emit = defineEmits(["submitForm"]);
 
-const formData = ref({
-  name: "",
-  number: 4,
-});
+const formData = ref({});
 
 const props = defineProps({
   slide: Number,
+  formData: Object,
 });
 
-const handleSubmit = () => {
-  emit("submitForm", formData.value);
+const handleSubmit = (button) => {
+  if (button == "next") {
+    emit("submitForm", formData.value);
+    formData.value = { ...formData.value, slide: 4 };
+  } else {
+    emit("submitForm", formData.value);
+    formData.value = { ...formData.value, slide: 2 };
+  }
 };
 </script>
 
@@ -35,7 +39,7 @@ const handleSubmit = () => {
               type="text"
               id="nama_lengkap"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="Jaka Tarub"
+              :value="props.formData.nama_lengkap"
               disabled
             />
           </div>
@@ -49,7 +53,7 @@ const handleSubmit = () => {
               type="email"
               id="email"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="kasdkajn@gmail.com"
+              :value="props.formData.email"
               disabled
             />
           </div>
@@ -65,7 +69,7 @@ const handleSubmit = () => {
               type="text"
               id="alamat"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="Lorem ipsum dolor sit amet."
+              :value="props.formData.alamat"
               disabled
             />
           </div>
@@ -79,7 +83,7 @@ const handleSubmit = () => {
               type="number"
               id="no_telp"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="0988728374208374"
+              :value="props.formData.no_telp"
               disabled
             />
           </div>
@@ -87,7 +91,7 @@ const handleSubmit = () => {
       </div>
       <div class="mb-5 pb-5 border-b">
         <div class="mb-5">
-          <h1 class="font-semibold text-lg">Informasi Kendaraan</h1>
+          <h1 class="font-semibold text-lg">Informasi Layanan</h1>
         </div>
         <div class="grid grid-cols-3 gap-5 mb-5">
           <div class="">
@@ -100,7 +104,7 @@ const handleSubmit = () => {
               type="text"
               id="tipe_mobil"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="Lorem, ipsum dolor."
+              :value="props.formData.tipe_mobil"
               disabled
             />
           </div>
@@ -114,7 +118,7 @@ const handleSubmit = () => {
               type="text"
               id="jenis_layanan"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="Lorem, ipsum dolor."
+              :value="props.formData.jenis_layanan"
               disabled
             />
           </div>
@@ -130,7 +134,7 @@ const handleSubmit = () => {
                 type="number"
                 id="harga_layanan"
                 class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-                value="20.000"
+                :value="props.formData.harga_layanan"
                 disabled
               />
             </div>
@@ -147,54 +151,23 @@ const handleSubmit = () => {
               type="text"
               id="jenis_layanan"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              value="Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, totam?"
+              :value="props.formData.deskripsi"
               disabled
-            />
-          </div>
-        </div>
-      </div>
-      <div class="">
-        <div class="mb-5">
-          <h1 class="font-semibold text-lg">Tangal dan Waktu</h1>
-        </div>
-        <div class="grid grid-cols-2 gap-5 mb-5">
-          <div class="">
-            <label
-              for="tanggal_pencucian"
-              class="block mb-2 text-sm text-gray-900 dark:text-white"
-              >Tanggal Pemesanan</label
-            >
-            <input
-              type="date"
-              id="tanggal_pencucian"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@flowbite.com"
-            />
-          </div>
-          <div class="">
-            <label
-              for="waktu_pencucian"
-              class="block mb-2 text-sm text-gray-900 dark:text-white"
-              >Waktu Pemesanan</label
-            >
-            <input
-              type="time"
-              id="waktu_pencucian"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@flowbite.com"
             />
           </div>
         </div>
       </div>
       <div class="mt-10 flex justify-end">
         <button
-          type="button"
+          type="submit"
+          @click="handleSubmit('prev')"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm me-2 sm:w-full md:w-fit px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Kembali
         </button>
         <button
           type="submit"
+          @click="handleSubmit('next')"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm ms-2 sm:w-full md:w-fit px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Submit Pemesanan
