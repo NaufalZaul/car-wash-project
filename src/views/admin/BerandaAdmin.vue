@@ -7,44 +7,52 @@
         <div
           class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
         >
-          <h2
-            class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2"
-          >
-            Start with Flowbite Design System
+          <h2 class="text-gray-900 dark:text-white text-3xl mb-2">
+            Total Pemesanan
           </h2>
-          <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-            Static websites are now used to bootstrap lots of websites and are
-            becoming the basis for a variety of tools that even influence both
-            web designers and developers.
-          </p>
+          <div class="h-full flex items-center">
+            <h2
+              class="text-gray-900 dark:text-white text-8xl font-bold mb-2 me-5"
+            >
+              100
+            </h2>
+            <p
+              class="text-2xl font-normal text-gray-500 dark:text-gray-400 mb-4"
+            >
+              pemesanan
+            </p>
+          </div>
         </div>
         <div
           class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
         >
-          <h2
-            class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2"
-          >
-            Best react libraries around the web
+          <h2 class="text-gray-900 dark:text-white text-3xl mb-2">
+            Pemesanan Berhasil
           </h2>
-          <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4">
-            Static websites are now used to bootstrap lots of websites and are
-            becoming the basis for a variety of tools that even influence both
-            web designers and developers.
-          </p>
+          <div class="h-full flex items-center">
+            <h2
+              class="text-gray-900 dark:text-white text-8xl font-bold mb-2 me-5"
+            >
+              20
+            </h2>
+            <p
+              class="text-2xl font-normal text-gray-500 dark:text-gray-400 mb-4"
+            >
+              pemesanan
+            </p>
+          </div>
         </div>
       </div>
       <div
         class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
       >
         <h1
-          class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2"
+          class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
         >
-          How to quickly deploy a static website
+          Status Pencucian Kendaraan
         </h1>
-        <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
-          Static websites are now used to bootstrap lots of websites and are
-          becoming the basis for a variety of tools that even influence both web
-          designers and developers.
+        <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-10">
+          Menampilkan seluruh data pemesanan pencucian mobil dan motor
         </p>
 
         <div class="relative overflow-x-auto">
@@ -55,49 +63,41 @@
               class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
             >
               <tr>
-                <th scope="col" class="px-6 py-3">Product name</th>
-                <th scope="col" class="px-6 py-3">Color</th>
-                <th scope="col" class="px-6 py-3">Category</th>
-                <th scope="col" class="px-6 py-3">Price</th>
+                <th scope="col" class="px-6 py-3">ID Booking</th>
+                <th scope="col" class="px-6 py-3">Nama Lengkap</th>
+                <th scope="col" class="px-6 py-3">Waktu</th>
+                <th scope="col" class="px-6 py-3">Tanggal</th>
+                <th scope="col" class="px-6 py-3">Tipe Mobil</th>
+                <th scope="col" class="px-6 py-3">Jenis Layanan</th>
+                <th scope="col" class="px-6 py-3">Status</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="text-black">
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
+                <td class="px-6 py-4">3123123</td>
+                <td scope="row" class="px-6 py-4 whitespace-nowrap">
                   Apple MacBook Pro 17"
-                </th>
-                <td class="px-6 py-4">Silver</td>
-                <td class="px-6 py-4">Laptop</td>
-                <td class="px-6 py-4">$2999</td>
+                </td>
+                <td class="px-6 py-4">15.00</td>
+                <td class="px-6 py-4">2024-04-02</td>
+                <td class="px-6 py-4">small/medium</td>
+                <td class="px-6 py-4">express glow</td>
+                <td class="px-6 py-4">pending</td>
               </tr>
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Microsoft Surface Pro
-                </th>
-                <td class="px-6 py-4">White</td>
-                <td class="px-6 py-4">Laptop PC</td>
-                <td class="px-6 py-4">$1999</td>
-              </tr>
-              <tr class="bg-white dark:bg-gray-800">
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Magic Mouse 2
-                </th>
-                <td class="px-6 py-4">Black</td>
-                <td class="px-6 py-4">Accessories</td>
-                <td class="px-6 py-4">$99</td>
+                <td class="px-6 py-4">78980890</td>
+                <td scope="row" class="px-6 py-4 whitespace-nowrap">
+                  Lorem ipsum dolor sit amet.
+                </td>
+                <td class="px-6 py-4">20.00</td>
+                <td class="px-6 py-4">2024-08-01</td>
+                <td class="px-6 py-4">large/big/suv</td>
+                <td class="px-6 py-4">hidrolik glow</td>
+                <td class="px-6 py-4">berhasil</td>
               </tr>
             </tbody>
           </table>

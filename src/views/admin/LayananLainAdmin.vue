@@ -7,14 +7,12 @@
         class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
       >
         <h1
-          class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2"
+          class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing.
+          Kelola data layanan lainnya
         </h1>
-        <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-2">
-          Static websites are now used to bootstrap lots of websites and are
-          becoming the basis for a variety of tools that even influence both web
-          designers and developers.
+        <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6">
+          Mengelola seluruh data layanan lainnya pada website
         </p>
 
         <!-- Modal toggle -->
@@ -162,10 +160,10 @@
               class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400"
             >
               <tr>
-                <th scope="col" class="px-6 py-3">Product name</th>
-                <th scope="col" class="px-6 py-3">Color</th>
-                <th scope="col" class="px-6 py-3">Category</th>
-                <th scope="col" class="px-6 py-3">Price</th>
+                <th scope="col" class="px-6 py-3">ID Layanan</th>
+                <th scope="col" class="px-6 py-3">Tipe Mobil</th>
+                <th scope="col" class="px-6 py-3">Jenis Layanan</th>
+                <th scope="col" class="px-6 py-3">Harga</th>
                 <th scope="col" class="px-6 py-3 text-center">Aksi</th>
               </tr>
             </thead>
@@ -173,12 +171,7 @@
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
               >
-                <th
-                  scope="row"
-                  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                  Apple MacBook Pro 17"
-                </th>
+                <td class="px-6 py-4">092423423</td>
                 <td class="px-6 py-4">Silver</td>
                 <td class="px-6 py-4">Laptop</td>
                 <td class="px-6 py-4">$2999</td>
