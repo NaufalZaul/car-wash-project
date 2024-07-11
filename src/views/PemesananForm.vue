@@ -1,8 +1,8 @@
 <script setup>
-import { defineEmits, ref } from "vue";
+import { defineEmits, onMounted, ref } from "vue";
 
-const emit = defineEmits(["submitForm"]);
-
+let dataLayanan = {};
+const dataFetched = ref(false);
 const formData = ref({});
 
 const props = defineProps({
@@ -10,10 +10,98 @@ const props = defineProps({
   formData: Object,
 });
 
+const fetchData = async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/services");
+    const result = await response.json();
+    if (response.ok) {
+      result.data.data.find((item) => {
+        if (item.id == props.formData.jenis_layanan) {
+          dataLayanan = item;
+          dataFetched.value = true;
+        }
+      });
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+};
+fetchData();
+
+const submitBooking = async () => {
+  const {
+    nama_lengkap,
+    no_telp,
+    tanggal_pencucian,
+    waktu_pencucian,
+    jenis_layanan,
+  } = props.formData;
+  console.log(no_telp);
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/bookings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: nama_lengkap,
+        phone: `${no_telp}`,
+        booking_time: `${waktu_pencucian}:00`,
+        booking_date: tanggal_pencucian,
+        id_service: jenis_layanan,
+        status: "scheduled",
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Error creating booking");
+    }
+
+    const bookingData = await response.json();
+    const paymentResponse = await fetch("http://127.0.0.1:8000/api/payment", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id_booking: bookingData.data.id }),
+    });
+
+    if (!paymentResponse.ok) {
+      const errorData = await paymentResponse.json();
+      throw new Error(errorData.message || "Error processing payment");
+    }
+
+    const paymentData = await paymentResponse.json();
+    const snapToken = paymentData.snapToken;
+
+    window.snap.pay(snapToken, {
+      onSuccess: function (result) {
+        alert("Payment success!");
+        formData.value = { ...formData.value, slide: 4 };
+      },
+      onPending: function (result) {
+        alert("Payment pending!");
+      },
+      onError: function (result) {
+        alert("Payment failed!");
+      },
+    });
+  } catch (err) {
+    console.error("Booking error: ", err.message);
+    // errorMessage.set(err.message);
+    alert("Error creating booking!");
+  }
+};
+
+const emit = defineEmits(["submitForm"]);
+
 const handleSubmit = (button) => {
   if (button == "next") {
     emit("submitForm", formData.value);
-    formData.value = { ...formData.value, slide: 4 };
+    submitBooking();
   } else {
     emit("submitForm", formData.value);
     formData.value = { ...formData.value, slide: 2 };
@@ -37,6 +125,7 @@ const handleSubmit = (button) => {
             >
             <input
               type="text"
+              name="name"
               id="nama_lengkap"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
               :value="props.formData.nama_lengkap"
@@ -82,6 +171,7 @@ const handleSubmit = (button) => {
             <input
               type="number"
               id="no_telp"
+              name="phone"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
               :value="props.formData.no_telp"
               disabled
@@ -108,7 +198,7 @@ const handleSubmit = (button) => {
               disabled
             />
           </div>
-          <div class="">
+          <div class="" v-if="dataFetched">
             <label
               for="jenis_layanan"
               class="block mb-2 text-sm text-gray-900 dark:text-white"
@@ -117,12 +207,13 @@ const handleSubmit = (button) => {
             <input
               type="text"
               id="jenis_layanan"
+              name="id_service"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              :value="props.formData.jenis_layanan"
+              :value="dataLayanan.service_type"
               disabled
             />
           </div>
-          <div class="">
+          <div class="" v-if="dataFetched">
             <label
               for="harga_layanan"
               class="block mb-2 text-sm text-gray-900 dark:text-white"
@@ -134,7 +225,7 @@ const handleSubmit = (button) => {
                 type="number"
                 id="harga_layanan"
                 class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-                :value="props.formData.harga_layanan"
+                :value="dataLayanan.price"
                 disabled
               />
             </div>
@@ -151,7 +242,7 @@ const handleSubmit = (button) => {
               type="text"
               id="jenis_layanan"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              :value="props.formData.deskripsi"
+              :value="dataLayanan.description"
               disabled
             />
           </div>

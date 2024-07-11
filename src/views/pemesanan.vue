@@ -11,7 +11,7 @@ const formData = ref({
 
 const handleFormSubmit = (data) => {
   formData.value = { ...formData.value, ...data };
-  console.log(formData.value);
+  // console.log(formData.value);
 };
 </script>
 
@@ -27,23 +27,29 @@ const handleFormSubmit = (data) => {
     <div class="border rounded mt-10 bg-slate-50">
       <NavbarFormComponent :count="formData.slide" />
 
+      <!-- <template v-if="formData.slide == 1"> -->
       <DataDiriForm
         @submitForm="handleFormSubmit"
         :formData="formData"
         :slide="formData.slide"
       />
+      <!-- </template> -->
 
+      <!-- <template v-if="formData.slide == 2"> -->
       <LayananForm
         @submitForm="handleFormSubmit"
         :formData="formData"
         :slide="formData.slide"
       />
+      <!-- </template> -->
 
-      <PemesananForm
-        @submitForm="handleFormSubmit"
-        :formData="formData"
-        :slide="formData.slide"
-      />
+      <template v-if="formData.slide == 3">
+        <PemesananForm
+          @submitForm="handleFormSubmit"
+          :formData="formData"
+          :slide="formData.slide"
+        />
+      </template>
     </div>
   </div>
 </template>

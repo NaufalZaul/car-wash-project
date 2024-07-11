@@ -1,9 +1,41 @@
 <script setup>
-import { defineEmits, ref, watch } from "vue";
+import { defineEmits, ref } from "vue";
+
+let tipeMobil = [];
+let layanan = [];
+const formData = ref({});
+
+const fetchData = async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/services");
+    const result = await response.json();
+    if (response.ok) {
+      // console.log(result.data.data);
+      layanan = result.data.data;
+      const reduceDuplicate = new Set();
+      result.data.data.filter((car) => {
+        const duplicate = reduceDuplicate.has(car.car_type);
+        reduceDuplicate.add(car.car_type);
+        return !duplicate;
+      });
+      return (tipeMobil = [...reduceDuplicate]);
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+};
+
+function formatRupiah(number) {
+  return new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(number);
+}
+fetchData();
 
 const emit = defineEmits(["submitForm"]);
-
-const formData = ref({});
 
 const props = defineProps({
   slide: Number,
@@ -41,10 +73,13 @@ const handleSubmit = (button) => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <option selected>Pilih tipe mobil</option>
-              <option value="US">United States</option>
-              <option value="CA">Canada</option>
-              <option value="FR">France</option>
-              <option value="DE">Germany</option>
+              <option
+                v-for="(car, index) in tipeMobil"
+                :key="index"
+                :value="car"
+              >
+                {{ car }}
+              </option>
             </select>
           </div>
           <div class="">
@@ -99,7 +134,31 @@ const handleSubmit = (button) => {
         </div>
         <div class="mb-5">
           <ul class="grid w-full gap-3 md:grid-cols-4">
-            <li>
+            <li v-for="(service, index) in layanan" :key="index">
+              <input
+                type="radio"
+                :id="service.service_type + `-${index}`"
+                name="jenis_layanan"
+                :value="service.id"
+                v-model="formData.jenis_layanan"
+                class="hidden peer"
+              />
+              <label
+                :for="service.service_type + `-${index}`"
+                class="inline-flex justify-between w-full h-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-white peer-checked:bg-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+              >
+                <div class="block">
+                  <div class="w-full text-lg font-semibold">
+                    {{ formatRupiah(service.price) }}
+                  </div>
+                  <div class="w-full font-medium mb-3">
+                    {{ service.service_type }}
+                  </div>
+                  <div class="w-full">Cuci Interior & Cuci Exterior</div>
+                </div>
+              </label>
+            </li>
+            <!-- <li>
               <input
                 type="radio"
                 id="express-glow"
@@ -120,81 +179,7 @@ const handleSubmit = (button) => {
                   <div class="w-full">Cuci Interior & Cuci Exterior</div>
                 </div>
               </label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="hidrolik-glow"
-                name="jenis_layanan"
-                value="hidrolik-glow"
-                v-model="formData.jenis_layanan"
-                class="hidden peer"
-              />
-              <label
-                for="hidrolik-glow"
-                class="inline-flex justify-between w-full h-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">
-                    Rp 35.000 - Rp 50.000
-                  </div>
-                  <div class="w-full font-medium mb-3">Hidrolik Glow</div>
-                  <div class="w-full">
-                    Cuci Interior, Cuci Exterior, Vacum Cleaner, Semir Ban
-                  </div>
-                </div>
-              </label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="extra-glow"
-                name="jenis_layanan"
-                value="extra-glow"
-                v-model="formData.jenis_layanan"
-                class="hidden peer"
-              />
-              <label
-                for="extra-glow"
-                class="inline-flex justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">
-                    Rp 65.000 - Rp 80.000
-                  </div>
-                  <div class="w-full font-medium mb-3">Extra Glow</div>
-                  <div class="w-full">
-                    Cuci Interior, Cuci Exterior, Vacum Cleaner, Semir Ban,
-                    Glowmax Protection (body & kaca)
-                  </div>
-                </div>
-              </label>
-            </li>
-            <li>
-              <input
-                type="radio"
-                id="cuci-motor"
-                name="jenis_layanan"
-                value="cuci-motor"
-                v-model="formData.jenis_layanan"
-                class="hidden peer"
-              />
-              <label
-                for="cuci-motor"
-                class="inline-flex justify-between w-full h-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
-              >
-                <div class="block">
-                  <div class="w-full text-lg font-semibold">
-                    Rp 15.000 - Rp 20.000
-                  </div>
-                  <div class="w-full font-medium mb-3">Cuci Motor</div>
-                  <div class="w-full">
-                    <p>Motor Kecil : Rp 15.000</p>
-                    <p>Motor Besar : Rp 20.000</p>
-                  </div>
-                </div>
-              </label>
-            </li>
+            </li> -->
           </ul>
         </div>
       </div>
