@@ -1,9 +1,99 @@
-<script setup lang="ts"></script>
+<script setup>
+import { ref } from "vue";
+
+let dataBooking = [];
+let dataService = [];
+let dataFetched = ref(false);
+
+let showModal = ref({
+  getID: 0,
+  add: false,
+  edit: false,
+  delete: false,
+});
+
+const openModal = {
+  getID: (id) => (showModal.value.getID = id),
+  edit: () => (showModal.value.edit = true),
+  hapus: () => (showModal.value.delete = true),
+  close: () => {
+    showModal.value.add = false;
+    showModal.value.edit = false;
+    showModal.value.delete = false;
+  },
+};
+
+const getDataService = async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/services");
+    const result = await response.json();
+    if (response.ok) {
+      return (dataService = result.data.data);
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+};
+
+const getDataBooking = async () => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/bookings");
+    const result = await response.json();
+    if (response.ok) {
+      result.data.data.find((item) => {
+        const service = dataService.find(
+          (itemService) => itemService.id == item.id_service
+        );
+
+        item.car_type = service.car_type;
+        item.service_type = service.service_type;
+
+        dataBooking.push(item);
+      });
+      dataFetched.value = true;
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+};
+
+const deleteDataBooking = async (id) => {
+  try {
+    const response = await fetch(`http://127.0.0.1:8000/api/bookings/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    const result = await response.json();
+
+    if (response.ok) {
+      // console.log(result);
+      window.location = "/admin";
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+};
+
+getDataService();
+
+if (dataService) {
+  getDataBooking();
+}
+</script>
 
 <template>
   <section class="dark:bg-gray-900">
     <div class="p-4 mx-auto max-w-screen-xl">
-      <div class="grid md:grid-cols-2 gap-8 mb-8">
+      <div class="hidden grid md:grid-cols-2 gap-8 mb-8">
         <div
           class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
         >
@@ -14,7 +104,7 @@
             <h2
               class="text-gray-900 dark:text-white text-8xl font-bold mb-2 me-5"
             >
-              100
+              {{ dataBooking.length }}
             </h2>
             <p
               class="text-2xl font-normal text-gray-500 dark:text-gray-400 mb-4"
@@ -70,37 +160,116 @@
                 <th scope="col" class="px-6 py-3">Tipe Mobil</th>
                 <th scope="col" class="px-6 py-3">Jenis Layanan</th>
                 <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3">Aksi</th>
               </tr>
             </thead>
-            <tbody class="text-black">
+            <tbody class="text-black" v-if="dataFetched">
               <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                v-for="data in dataBooking"
+                :key="data.id"
               >
-                <td class="px-6 py-4">3123123</td>
+                <td class="px-6 py-4">{{ data.id }}</td>
                 <td scope="row" class="px-6 py-4 whitespace-nowrap">
-                  Apple MacBook Pro 17"
+                  {{ data.name }}
                 </td>
-                <td class="px-6 py-4">15.00</td>
-                <td class="px-6 py-4">2024-04-02</td>
-                <td class="px-6 py-4">small/medium</td>
-                <td class="px-6 py-4">express glow</td>
-                <td class="px-6 py-4">pending</td>
-              </tr>
-              <tr
-                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-              >
-                <td class="px-6 py-4">78980890</td>
-                <td scope="row" class="px-6 py-4 whitespace-nowrap">
-                  Lorem ipsum dolor sit amet.
+                <td class="px-6 py-4">{{ data.booking_time }}</td>
+                <td class="px-6 py-4">{{ data.booking_date }}</td>
+                <td class="px-6 py-4">{{ data.car_type }}</td>
+                <td class="px-6 py-4">{{ data.service_type }}</td>
+                <td class="px-6 py-4">{{ data.status }}</td>
+                <td class="px-6 py-4">
+                  <button
+                    type="button"
+                    @click="
+                      openModal.hapus();
+                      openModal.getID(data.id);
+                    "
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                  >
+                    Hapus
+                  </button>
                 </td>
-                <td class="px-6 py-4">20.00</td>
-                <td class="px-6 py-4">2024-08-01</td>
-                <td class="px-6 py-4">large/big/suv</td>
-                <td class="px-6 py-4">hidrolik glow</td>
-                <td class="px-6 py-4">berhasil</td>
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+    </div>
+
+    <div
+      v-if="showModal.delete"
+      id="popup-modal"
+      tabindex="-1"
+      class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex"
+    >
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <button
+            type="button"
+            class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="popup-modal"
+            @click="openModal.close"
+          >
+            <svg
+              class="w-3 h-3"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 14 14"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+              />
+            </svg>
+            <span class="sr-only">Close modal</span>
+          </button>
+          <div class="p-4 md:p-5 text-center">
+            <svg
+              class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+            <h3
+              class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400"
+            >
+              Are you sure you want to delete this product?
+              {{ showModal.getID }}
+            </h3>
+            <button
+              data-modal-hide="popup-modal"
+              @click="
+                openModal.close;
+                deleteDataBooking(showModal.getID);
+              "
+              type="button"
+              class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+            >
+              Yes, I'm sure
+            </button>
+            <button
+              data-modal-hide="popup-modal"
+              @click="openModal.close"
+              type="button"
+              class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+            >
+              No, cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

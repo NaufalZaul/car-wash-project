@@ -10,7 +10,6 @@ const fetchData = async () => {
     const response = await fetch("http://127.0.0.1:8000/api/services");
     const result = await response.json();
     if (response.ok) {
-      // console.log(result.data.data);
       layanan = result.data.data;
       const reduceDuplicate = new Set();
       result.data.data.filter((car) => {
