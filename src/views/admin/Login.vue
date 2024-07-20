@@ -1,4 +1,16 @@
-<script setup></script>
+<script setup>
+import store from "@/auth/auth";
+import router from "@/routes/route";
+import { ref } from "vue";
+
+let dataForm = ref({});
+let storage = store();
+
+const loginSystem = () => {
+  storage.login(dataForm.value);
+  router.push("/admin");
+};
+</script>
 
 <template>
   <div id="login" class="min-h-screen flex justify-center p-8">
@@ -14,20 +26,20 @@
           >
             Sign in to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" action="#">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="loginSystem">
             <div>
               <label
-                for="email"
+                for="username"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Your email</label
+                >Your username</label
               >
               <input
-                type="email"
-                name="email"
-                id="email"
+                type="text"
+                name="username"
+                v-model="dataForm.username"
+                id="username"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
-                required=""
               />
             </div>
             <div>
@@ -39,10 +51,10 @@
               <input
                 type="password"
                 name="password"
+                v-model="dataForm.password"
                 id="password"
                 placeholder="••••••••"
                 class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required=""
               />
             </div>
             <button

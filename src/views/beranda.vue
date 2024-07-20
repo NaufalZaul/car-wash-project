@@ -137,10 +137,10 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
           </li>
         </ul>
       </div>
-      <div class="ps-20 md:ps-0 p-20 z-10">
+      <div class="flex items-center ps-20 md:ps-0 p-20 z-10">
         <img
-          class="h-full object-cover rounded-xl"
-          src="/public/car_wash_corousel.png"
+          class="h-[25rem] w-full object-cover rounded-xl"
+          src="/public/WhatsApp Image 2024-07-09 at 11.53.32_9783b70d.jpg"
           alt=""
         />
       </div>
@@ -156,8 +156,8 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
       <div class="grid justify-center grid-cols-2 md:grid-cols-3 gap-4">
         <div class="relative">
           <img
-            class="h-full object-cover max-w-full rounded-lg"
-            src="/public/car_wash_corousel.png"
+            class="h-80 object-cover w-full rounded-lg"
+            src="/public/WhatsApp Image 2024-07-09 at 11.53.16_dfb19437.jpg"
             alt=""
           />
           <div
@@ -172,8 +172,8 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="relative">
           <img
-            class="h-full object-cover max-w-full rounded-lg"
-            src="/public/car_wash_corousel.png"
+            class="h-80 object-cover w-full rounded-lg"
+            src="/public/WhatsApp Image 2024-07-09 at 11.52.55_4ae0ef65.jpg"
             alt=""
           />
           <div
@@ -188,8 +188,24 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="relative">
           <img
-            class="h-full object-cover max-w-full rounded-lg"
-            src="/public/car_wash_corousel.png"
+            class="h-80 object-cover w-full rounded-lg"
+            src="/public/WhatsApp Image 2024-07-09 at 11.53.32_f9e3382d.jpg"
+            alt=""
+          />
+          <div
+            class="absolute top-0 bottom-0 left-0 right-0 backdrop-brightness-50 bg-black/30 p-4 opacity-0 hover:opacity-100"
+          >
+            <h4 class="text-xl font-semibold mb-4">Lorem, ipsum dolor.</h4>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo,
+              deserunt!
+            </p>
+          </div>
+        </div>
+        <div class="relative">
+          <img
+            class="h-80 object-cover w-full rounded-lg"
+            src="/public/WhatsApp Image 2024-07-09 at 11.53.17_30d9ac11.jpg"
             alt=""
           />
           <div

@@ -11,7 +11,6 @@ const formData = ref({
 
 const handleFormSubmit = (data) => {
   formData.value = { ...formData.value, ...data };
-  // console.log(formData.value);
 };
 </script>
 

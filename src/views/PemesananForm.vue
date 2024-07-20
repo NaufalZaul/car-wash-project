@@ -38,7 +38,6 @@ const submitBooking = async () => {
     waktu_pencucian,
     jenis_layanan,
   } = props.formData;
-  console.log(no_telp);
   try {
     const response = await fetch("http://127.0.0.1:8000/api/bookings", {
       method: "POST",
@@ -234,15 +233,15 @@ const handleSubmit = (button) => {
         <div class="">
           <div class="mb-5">
             <label
-              for="jenis_layanan"
+              for="deskripsi"
               class="block mb-2 text-sm text-gray-900 dark:text-white"
               >Deskripsi</label
             >
             <input
               type="text"
-              id="jenis_layanan"
+              id="deskripsi"
               class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
-              :value="dataLayanan.description"
+              :value="props.formData.deskripsi"
               disabled
             />
           </div>

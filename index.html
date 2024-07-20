@@ -11,8 +11,14 @@
     <script type="module" src="/src/main.js"></script>
     <script
       type="text/javascript"
+      id="midtrans"
       src="https://app.sandbox.midtrans.com/snap/snap.js"
-      data-client-key="SB-Mid-client-WY4mIacrSHCy6J7F"
+      data-client-key=""
     ></script>
+    <script type="module">
+      document
+        .getElementById("midtrans")
+        .getAttribute("data-client-key", import.meta.env.VITE_CLIENT_KEY);
+    </script>
   </body>
 </html>

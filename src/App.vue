@@ -3,11 +3,14 @@ import { onMounted } from "vue";
 import { initFlowbite } from "flowbite";
 import NavbarComponent from "./components/NavbarComponent.vue";
 import FooterComponent from "./components/FooterComponent.vue";
-import { RouterView } from "vue-router";
+import { RouterView, useRoute, useRouter } from "vue-router";
 import HalamanAdmin from "./views/admin/HalamanAdmin.vue";
+import store from "./auth/auth";
 
+const storage = store();
 onMounted(() => {
   initFlowbite();
+  storage.load();
 });
 
 const segmentURL = window.location.pathname
