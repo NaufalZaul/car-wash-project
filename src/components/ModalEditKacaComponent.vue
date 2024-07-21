@@ -1,15 +1,17 @@
 <script setup>
+import {
+  getSpecificDataPackage,
+  updateDataPackage,
+} from "@/controllers/PackageAdminController";
 import { ref } from "vue";
 
 let dataForm = ref({});
 
-let showModal = ref({
-  edit: false,
-});
+let showModal = ref(false);
 
 const openModal = {
-  edit: () => (showModal.value.edit = true),
-  close: () => (showModal.value.edit = false),
+  edit: () => (showModal.value = true),
+  close: () => (showModal.value = false),
 };
 
 const props = defineProps({
@@ -18,46 +20,11 @@ const props = defineProps({
     required: true,
   },
 });
-
-const getSpecificDataPackage = async () => {
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/package/${props.dataID}`
-    );
-    const result = await response.json();
-
-    if (response.ok) {
-      dataForm.value = result.data;
-    } else {
-      console.error("Error fetching package");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const editData = async () => {
+  dataForm.value = await getSpecificDataPackage(props.dataID);
 };
-
-const updateDataPackage = async () => {
-  openModal.close();
-  try {
-    const response = await fetch(
-      `http://localhost:8000/api/package/${props.dataID}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dataForm.value),
-      }
-    );
-    const result = await response.json();
-    if (response.ok) {
-      alert("Berhasil diperbarui!");
-    } else {
-      console.error("Error fetching package");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const submit = async () => {
+  await updateDataPackage(props.dataID, dataForm.value);
 };
 </script>
 
@@ -67,14 +34,14 @@ const updateDataPackage = async () => {
       type="button"
       @click="
         openModal.edit();
-        getSpecificDataPackage();
+        editData();
       "
       class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-4 mb-2 dark:focus:ring-yellow-900"
     >
       Edit
     </button>
     <div
-      v-if="showModal.edit"
+      v-if="showModal"
       tabindex="-1"
       aria-hidden="true"
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex"
@@ -111,7 +78,7 @@ const updateDataPackage = async () => {
               <span class="sr-only">Close modal</span>
             </button>
           </div>
-          <form class="p-4 md:p-5" @submit.prevent="updateDataPackage">
+          <form class="p-4 md:p-5" @submit.prevent="submit">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <label

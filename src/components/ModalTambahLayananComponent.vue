@@ -1,39 +1,21 @@
 <script setup>
+import { addDataService } from "@/controllers/ServiceAdminController";
 import { ref } from "vue";
 
 let dataForm = ref({});
 
-let showModal = ref({
-  add: false,
-});
+let showModal = ref(false);
 
 const openModal = {
   tambah: () => {
     dataForm.value = {};
-    showModal.value.add = true;
+    showModal.value = true;
   },
-  close: () => (showModal.value.add = false),
+  close: () => (showModal.value = false),
 };
 
-const addDataService = async () => {
-  try {
-    const response = await fetch("http://localhost:8000/api/services", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataForm.value),
-    });
-    const result = await response.json();
-
-    if (response.ok) {
-      alert("Berhasil ditambahkan!");
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const submit = async () => {
+  addDataService(dataForm.value);
 };
 </script>
 
@@ -47,7 +29,7 @@ const addDataService = async () => {
       Tambah data
     </button>
     <div
-      v-if="showModal.add"
+      v-if="showModal"
       id="crud-modal"
       tabindex="-1"
       aria-hidden="true"
@@ -85,7 +67,7 @@ const addDataService = async () => {
               <span class="sr-only">Close modal</span>
             </button>
           </div>
-          <form class="p-4 md:p-5" @submit.prevent="addDataService">
+          <form class="p-4 md:p-5" @submit.prevent="submit">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <label

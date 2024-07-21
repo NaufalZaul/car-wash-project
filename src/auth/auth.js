@@ -22,6 +22,7 @@ const store = defineStore('auth', {
           this.token = result.access_token;
 
           sessionStorage.setItem('token', result.access_token)
+          window.location.href = '/admin'
         } else {
           console.error("Error fetching services");
         }
@@ -37,6 +38,7 @@ const store = defineStore('auth', {
     logout() {
       this.token = null;
       sessionStorage.removeItem('token');
+      window.location.href = '/login'
     }
   }
 })

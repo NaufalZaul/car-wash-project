@@ -1,51 +1,22 @@
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import ModalTambahLayananComponent from "@/components/ModalTambahLayananComponent.vue";
 import ModalTambahKacaComponent from "@/components/ModalTambahKacaComponent.vue";
 import ModalEditLayananComponent from "@/components/ModalEditLayananComponent.vue";
 import ModalEditKacaComponent from "@/components/ModalEditKacaComponent.vue";
 import ModalHapusLayananComponent from "@/components/ModalHapusLayananComponent.vue";
 import ModalHapusKacaComponent from "@/components/ModalHapusKacaComponent.vue";
+import { getDataPackage, getDataService } from "@/controllers/AdminController";
 
 let dataService = [];
 let dataPackage = [];
 let dataFetched = ref(false);
 
-const getDataService = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/services");
-    const result = await response.json();
-    if (response.ok) {
-      result.data.data.find((item) => {
-        dataService.push(item);
-      });
-      dataFetched.value = true;
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
-};
-
-const getDataPackage = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/package");
-    const result = await response.json();
-    if (response.ok) {
-      result.data.data.find((item) => {
-        dataPackage.push(item);
-      });
-      dataFetched.value = true;
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
-};
-getDataPackage();
-getDataService();
+onMounted(async () => {
+  dataService = await getDataService();
+  dataPackage = await getDataPackage();
+  if (dataService != [] || dataService != []) return (dataFetched.value = true);
+});
 </script>
 
 <template>
@@ -92,7 +63,7 @@ getDataService();
                 <td class="px-6 py-4">{{ data.service_type }}</td>
                 <td class="px-6 py-4">{{ data.price }}</td>
                 <td class="px-6 py-4">{{ data.description }}</td>
-                <td class="px-6 py-4 text-center flex items-center">
+                <td class="px-6 py-4 flex items-center">
                   <ModalEditLayananComponent :dataID="data.id" />
                   <ModalHapusLayananComponent :dataID="data.id" />
                 </td>
@@ -141,7 +112,7 @@ getDataService();
                 <td class="px-6 py-4">{{ data.merk_kaca }}</td>
                 <td class="px-6 py-4">{{ data.jenis_kaca }}</td>
                 <td class="px-6 py-4">{{ data.harga }}</td>
-                <td class="px-6 py-4 text-center flex items-center">
+                <td class="px-6 py-4 flex items-center">
                   <ModalEditKacaComponent :dataID="data.id" />
                   <ModalHapusKacaComponent :dataID="data.id" />
                 </td>

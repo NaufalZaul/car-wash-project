@@ -1,13 +1,12 @@
 <script setup>
+import { deleteDataPackage } from "@/controllers/PackageAdminController";
 import { ref } from "vue";
 
-let showModal = ref({
-  delete: false,
-});
+let showModal = ref(false);
 
 const openModal = {
-  hapus: () => (showModal.value.delete = true),
-  close: () => (showModal.value.delete = false),
+  hapus: () => (showModal.value = true),
+  close: () => (showModal.value = false),
 };
 
 const props = defineProps({
@@ -16,29 +15,8 @@ const props = defineProps({
     required: true,
   },
 });
-
-const deleteDataPackage = async () => {
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/package/${props.dataID}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(props.dataID),
-      }
-    );
-    const result = await response.json();
-
-    if (response.ok) {
-      window.location = "/admin/layanan";
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const hapusData = async () => {
+  await deleteDataPackage(props.dataID);
 };
 </script>
 
@@ -52,7 +30,7 @@ const deleteDataPackage = async () => {
       Hapus
     </button>
     <div
-      v-if="showModal.delete"
+      v-if="showModal"
       id="popup-modal"
       tabindex="-1"
       class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full flex"
@@ -108,7 +86,7 @@ const deleteDataPackage = async () => {
               data-modal-hide="popup-modal"
               @click="
                 openModal.close;
-                deleteDataPackage();
+                hapusData();
               "
               type="button"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"

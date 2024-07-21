@@ -23,7 +23,6 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = store();
   authStore.load()
-  // authStore.logout()
 
   if (!authStore.token) {
     if (to.name == 'beranda' || to.name == 'pemesanan' || to.name == 'login') {

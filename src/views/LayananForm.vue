@@ -1,30 +1,16 @@
 <script setup>
-import { defineEmits, ref } from "vue";
+import { getDataService } from "@/controllers/PemesananController";
+import { defineEmits, onMounted, ref } from "vue";
 
 let tipeMobil = [];
 let layanan = [];
 const formData = ref({});
 
-const fetchData = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/services");
-    const result = await response.json();
-    if (response.ok) {
-      layanan = result.data.data;
-      const reduceDuplicate = new Set();
-      result.data.data.filter((car) => {
-        const duplicate = reduceDuplicate.has(car.car_type);
-        reduceDuplicate.add(car.car_type);
-        return !duplicate;
-      });
-      return (tipeMobil = [...reduceDuplicate]);
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
-};
+onMounted(async () => {
+  let data = await getDataService();
+  tipeMobil = data.tipeMobil;
+  layanan = data.layanan;
+});
 
 function formatRupiah(number) {
   return new Intl.NumberFormat("id-ID", {
@@ -32,7 +18,6 @@ function formatRupiah(number) {
     currency: "IDR",
   }).format(number);
 }
-fetchData();
 
 const emit = defineEmits(["submitForm"]);
 

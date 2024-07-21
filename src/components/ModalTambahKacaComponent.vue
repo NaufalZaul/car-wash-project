@@ -1,40 +1,20 @@
 <script setup>
+import { addDataPackage } from "@/controllers/PackageAdminController";
 import { ref } from "vue";
 
 let dataForm = ref({});
 
-let showModal = ref({
-  add: false,
-});
+let showModal = ref(false);
 
 const openModal = {
   tambah: () => {
     dataForm.value = {};
-    showModal.value.add = true;
+    showModal.value = true;
   },
-  close: () => (showModal.value.add = false),
+  close: () => (showModal.value = false),
 };
-
-const addDataPackage = async () => {
-  // console.log(dataForm.value);
-  try {
-    const response = await fetch("http://localhost:8000/api/package", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(dataForm.value),
-    });
-    const result = await response.json();
-    console.log(result);
-    //   if (response.ok) {
-    //     alert("Berhasil ditambahkan!");
-    //   } else {
-    //     console.error("Error fetching package");
-    //   }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const submit = async () => {
+  await addDataPackage(dataForm.value);
 };
 </script>
 
@@ -48,7 +28,7 @@ const addDataPackage = async () => {
       Tambah data
     </button>
     <div
-      v-if="showModal.add"
+      v-if="showModal"
       id="crud-modal"
       tabindex="-1"
       aria-hidden="true"
@@ -86,7 +66,7 @@ const addDataPackage = async () => {
               <span class="sr-only">Close modal</span>
             </button>
           </div>
-          <form class="p-4 md:p-5" @submit.prevent="addDataPackage">
+          <form class="p-4 md:p-5" @submit.prevent="submit">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <label

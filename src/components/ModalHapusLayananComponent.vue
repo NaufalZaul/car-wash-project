@@ -1,4 +1,5 @@
 <script setup>
+import { deleteDataService } from "@/controllers/ServiceAdminController";
 import { ref } from "vue";
 
 let showModal = ref({
@@ -17,28 +18,8 @@ const props = defineProps({
   },
 });
 
-const deleteDataService = async () => {
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/services/${props.dataID}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(props.dataID),
-      }
-    );
-    const result = await response.json();
-
-    if (response.ok) {
-      window.location = "/admin/layanan";
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const hapusData = async () => {
+  await deleteDataService(props.dataID);
 };
 </script>
 
@@ -108,7 +89,7 @@ const deleteDataService = async () => {
               data-modal-hide="popup-modal"
               @click="
                 openModal.close;
-                deleteDataService();
+                hapusData();
               "
               type="button"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"

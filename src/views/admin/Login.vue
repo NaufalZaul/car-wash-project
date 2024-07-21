@@ -8,7 +8,6 @@ let storage = store();
 
 const loginSystem = () => {
   storage.login(dataForm.value);
-  router.push("/admin");
 };
 </script>
 
