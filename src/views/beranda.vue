@@ -303,15 +303,6 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
             <p class="text-xl ms-3">glowmaxgarage_md</p>
           </a>
         </div>
-        <div class="flex items-center">
-          <img
-            width="50"
-            height="50"
-            src="https://img.icons8.com/color/144/gmail-new.png"
-            alt="gmail-new"
-          />
-          <p class="text-xl ms-3">Lorem ipsum dolor</p>
-        </div>
       </div>
     </div>
   </div>
