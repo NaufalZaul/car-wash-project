@@ -77,7 +77,7 @@ const exportToExcel = async () => {
       const aLinkElement = document.createElement("a");
       aLinkElement.href = url;
       aLinkElement.download = "rekap.xlsx";
-      document.body.appendChild(a);
+      document.body.appendChild(aLinkElement);
       aLinkElement.click();
       aLinkElement.remove();
     } else {
