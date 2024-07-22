@@ -62,20 +62,22 @@ const updateDataService = async (id, data) => {
 };
 
 const deleteDataService = async (id) => {
+  console.log(id);
   try {
     const response = await fetch(
       `http://127.0.0.1:8000/api/services/${id}`,
       {
         method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(id),
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify(id),
       }
     );
     const result = await response.json();
-
+    console.log(result);
     if (response.ok) {
+      alert("Berhasil dihapus!");
       window.location.reload();
     } else {
       console.error("Error fetching services");

@@ -1,5 +1,11 @@
 <script setup>
-import { ref } from "vue";
+import {
+  deleteDataBooking,
+  exportToExcel,
+  getDataBooking,
+  getDataService,
+} from "@/controllers/BerandaAdminController";
+import { onMounted, ref } from "vue";
 
 let dataBooking = [];
 let dataService = [];
@@ -7,87 +13,127 @@ let dataFetched = ref(false);
 
 let showModal = ref({
   getID: 0,
-  add: false,
-  edit: false,
   delete: false,
 });
 
 const openModal = {
   getID: (id) => (showModal.value.getID = id),
-  edit: () => (showModal.value.edit = true),
   hapus: () => (showModal.value.delete = true),
   close: () => {
-    showModal.value.add = false;
-    showModal.value.edit = false;
     showModal.value.delete = false;
   },
 };
 
-const getDataService = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/services");
-    const result = await response.json();
-    if (response.ok) {
-      return (dataService = result.data.data);
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
+onMounted(async () => {
+  dataService = await getDataService();
+
+  if (dataService.length != 0) {
+    dataBooking = await getDataBooking(dataService);
+    dataFetched.value = true;
   }
+});
+
+const deleteData = async () => {
+  await deleteDataBooking(showModal.value.getID);
 };
 
-const getDataBooking = async () => {
-  try {
-    const response = await fetch("http://127.0.0.1:8000/api/bookings");
-    const result = await response.json();
-    if (response.ok) {
-      result.data.data.find((item) => {
-        const service = dataService.find(
-          (itemService) => itemService.id == item.id_service
-        );
-
-        item.car_type = service.car_type;
-        item.service_type = service.service_type;
-
-        dataBooking.push(item);
-      });
-      dataFetched.value = true;
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
+const exportData = async () => {
+  await exportToExcel();
 };
 
-const deleteDataBooking = async (id) => {
-  try {
-    const response = await fetch(`http://127.0.0.1:8000/api/bookings/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id }),
-    });
-    const result = await response.json();
+// const getDataService = async () => {
+//   try {
+//     const response = await fetch("http://127.0.0.1:8000/api/services");
+//     const result = await response.json();
+//     if (response.ok) {
+//       return (dataService = result.data.data);
+//     } else {
+//       console.error("Error fetching services");
+//     }
+//   } catch (error) {
+//     console.error("Fetch error: ", error);
+//   }
+// };
 
-    if (response.ok) {
-      // console.log(result);
-      window.location = "/admin";
-    } else {
-      console.error("Error fetching services");
-    }
-  } catch (error) {
-    console.error("Fetch error: ", error);
-  }
-};
+// const getDataBooking = async () => {
+//   try {
+//     const response = await fetch("http://127.0.0.1:8000/api/bookings");
+//     const result = await response.json();
+//     if (response.ok) {
+//       result.data.data.find((item) => {
+//         const service = dataService.find(
+//           (itemService) => itemService.id == item.id_service
+//         );
 
-getDataService();
+//         item.car_type = service.car_type;
+//         item.service_type = service.service_type;
 
-if (dataService) {
-  getDataBooking();
-}
+//         dataBooking.push(item);
+//       });
+//       dataFetched.value = true;
+//     } else {
+//       console.error("Error fetching services");
+//     }
+//   } catch (error) {
+//     console.error("Fetch error: ", error);
+//   }
+// };
+
+// const deleteDataBooking = async (id) => {
+//   try {
+//     const response = await fetch(`http://127.0.0.1:8000/api/bookings/${id}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({ id }),
+//     });
+//     const result = await response.json();
+
+//     if (response.ok) {
+//       // console.log(result);
+//       window.location = "/admin";
+//     } else {
+//       console.error("Error fetching services");
+//     }
+//   } catch (error) {
+//     console.error("Fetch error: ", error);
+//   }
+// };
+
+// getDataService();
+
+// if (dataService) {
+//   getDataBooking();
+// }
+
+// const exportData = async () => {
+//   try {
+//     const response = await fetch("http://127.0.0.1:8000/api/export-payments", {
+//       method: "GET",
+//       headers: {
+//         Accept:
+//           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+//       },
+//     });
+
+//     if (response.ok) {
+//       const result = await response.blob();
+//       const url = window.URL.createObjectURL(result);
+
+//       const aLinkElement = document.createElement("a");
+//       aLinkElement.href = url;
+//       aLinkElement.download = "rekap.xlsx";
+//       document.body.appendChild(a);
+//       aLinkElement.click();
+//       aLinkElement.remove();
+//     } else {
+//       console.error("Error fetching services");
+//     }
+//   } catch (error) {
+//     console.error("Fetch error: ", error);
+//   }
+// };
 </script>
 
 <template>
@@ -136,14 +182,23 @@ if (dataService) {
       <div
         class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
       >
-        <h1
-          class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
-        >
-          Status Pencucian Kendaraan
-        </h1>
-        <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-10">
-          Menampilkan seluruh data pemesanan pencucian mobil dan motor
-        </p>
+        <div class="mb-5">
+          <h1
+            class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
+          >
+            Status Pencucian Kendaraan
+          </h1>
+          <p class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-5">
+            Menampilkan seluruh data pemesanan pencucian mobil dan motor
+          </p>
+          <button
+            type="button"
+            @click="exportData"
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          >
+            Export data
+          </button>
+        </div>
 
         <div class="relative overflow-x-auto">
           <table
@@ -254,7 +309,7 @@ if (dataService) {
               data-modal-hide="popup-modal"
               @click="
                 openModal.close;
-                deleteDataBooking(showModal.getID);
+                deleteData();
               "
               type="button"
               class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"

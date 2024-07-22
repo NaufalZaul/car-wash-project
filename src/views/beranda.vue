@@ -75,8 +75,8 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         <div class="">
           <h1 class="text-3xl font-semibold mb-5">Tempat Kami Bekerja</h1>
           <p class="text-lg leading-8">
-            Kami Terletak di Jl. S. Parman, Genuk Barat, Genuk, Kec. Ungaran
-            Bar., Kabupaten Semarang, Jawa Tengah 50512
+            Jl. Raya Tiron No.54, Kuwek, Nglames, Kec. Madiun, Kabupaten Madiun,
+            Jawa Timur 63151
           </p>
           <button
             type="button"
@@ -94,7 +94,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.8552767984274!2d110.4122349!3d-7.142728699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7087d28129713d%3A0x712c8455b8c6cfaf!2sGlowmaxx%20Carwash%20%26%20Autocare!5e0!3m2!1sen!2sid!4v1717229449246!5m2!1sen!2sid"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3954.8940286351453!2d111.5401175!3d-7.5865124999999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e79bf21fdad1ec5%3A0xc87e76ad84943de2!2sGLOWMAX%20GARAGE%20(CUCI%20MOBIL%20MOTOR%20%26%20GANTI%20OLI%20)!5e0!3m2!1sen!2sid!4v1721650154635!5m2!1sen!2sid"
             class="w-full rounded-lg"
             width="600"
             height="380"
@@ -103,6 +103,17 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
+
+          <!-- <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.8552767984274!2d110.4122349!3d-7.142728699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7087d28129713d%3A0x712c8455b8c6cfaf!2sGlowmaxx%20Carwash%20%26%20Autocare!5e0!3m2!1sen!2sid!4v1717229449246!5m2!1sen!2sid"
+            class="w-full rounded-lg"
+            width="600"
+            height="380"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe> -->
         </div>
       </div>
     </div>
@@ -277,14 +288,20 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
           />
           <p class="text-xl ms-3">+62 812-2573-0655</p>
         </div>
-        <div class="flex items-center">
-          <img
-            width="50"
-            height="50"
-            src="https://img.icons8.com/fluency/144/instagram-new.png"
-            alt="instagram-new"
-          />
-          <p class="text-xl ms-3">glowmaxx.id</p>
+        <div class="">
+          <a
+            href="https://www.instagram.com/glowmaxgarage_mdn/"
+            class="flex items-center"
+            target="_blank"
+          >
+            <img
+              width="50"
+              height="50"
+              src="https://img.icons8.com/fluency/144/instagram-new.png"
+              alt="instagram-new"
+            />
+            <p class="text-xl ms-3">glowmaxgarage_md</p>
+          </a>
         </div>
         <div class="flex items-center">
           <img
