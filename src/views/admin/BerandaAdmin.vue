@@ -1,4 +1,5 @@
 <script setup>
+import store from "@/auth/auth";
 import {
   deleteDataBooking,
   exportToExcel,
@@ -6,6 +7,8 @@ import {
   getDataService,
 } from "@/controllers/BerandaAdminController";
 import { onMounted, ref } from "vue";
+
+let authStore = store();
 
 let dataBooking = [];
 let dataService = [];
@@ -25,6 +28,7 @@ const openModal = {
 };
 
 onMounted(async () => {
+  console.log(authStore.nama);
   dataService = await getDataService();
 
   if (dataService.length != 0) {
@@ -98,6 +102,7 @@ const exportData = async () => {
             Menampilkan seluruh data pemesanan pencucian mobil dan motor
           </p>
           <button
+            v-if="authStore == 'admin'"
             type="button"
             @click="exportData"
             class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -121,7 +126,9 @@ const exportData = async () => {
                 <th scope="col" class="px-6 py-3">Tipe Mobil</th>
                 <th scope="col" class="px-6 py-3">Jenis Layanan</th>
                 <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Aksi</th>
+                <th scope="col" class="px-6 py-3" v-if="authStore == 'admin'">
+                  Aksi
+                </th>
               </tr>
             </thead>
             <tbody class="text-black" v-if="dataFetched">
@@ -139,7 +146,7 @@ const exportData = async () => {
                 <td class="px-6 py-4">{{ data.car_type }}</td>
                 <td class="px-6 py-4">{{ data.service_type }}</td>
                 <td class="px-6 py-4">{{ data.status }}</td>
-                <td class="px-6 py-4">
+                <td class="px-6 py-4" v-if="authStore == 'admin'">
                   <button
                     type="button"
                     @click="

@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@turf/turf": "^7.0.0",
     "@vue/cli": "^5.0.8",
+    "axios": "^1.7.2",
     "flowbite": "^2.3.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",

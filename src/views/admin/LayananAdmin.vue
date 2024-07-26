@@ -7,6 +7,9 @@ import ModalEditKacaComponent from "@/components/ModalEditKacaComponent.vue";
 import ModalHapusLayananComponent from "@/components/ModalHapusLayananComponent.vue";
 import ModalHapusKacaComponent from "@/components/ModalHapusKacaComponent.vue";
 import { getDataPackage, getDataService } from "@/controllers/AdminController";
+import store from "@/auth/auth";
+
+let authStore = store();
 
 let dataService = [];
 let dataPackage = [];

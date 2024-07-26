@@ -1,12 +1,13 @@
 <script setup>
 import store from "@/auth/auth";
+import router from "@/routes/route";
 import { ref } from "vue";
 
 let dataForm = ref({});
 let storage = store();
 
-const loginSystem = async () => {
-  await storage.login(dataForm.value);
+const registerSystem = () => {
+  storage.register(dataForm.value);
 };
 </script>
 
@@ -22,9 +23,24 @@ const loginSystem = async () => {
           <h1
             class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
-            Sign in to your account
+            Sign up to your account
           </h1>
-          <form class="space-y-4 md:space-y-6" @submit.prevent="loginSystem">
+          <form class="space-y-4 md:space-y-6" @submit.prevent="registerSystem">
+            <div>
+              <label
+                for="nama"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Nama lengkap</label
+              >
+              <input
+                type="text"
+                name="nama"
+                v-model="dataForm.name"
+                id="nama"
+                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Masukkan nama lengkap"
+              />
+            </div>
             <div>
               <label
                 for="username"

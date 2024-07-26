@@ -25,7 +25,6 @@ const props = defineProps({
   slide: Number,
   formData: Object,
 });
-
 const handleSubmit = (button) => {
   if (button == "next") {
     emit("submitForm", formData.value);

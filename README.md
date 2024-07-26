@@ -27,3 +27,13 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Pengecekan alamat
+
+- User dapat mengisi inputan dengan format yang sudah tertera pada bawah input, yaitu
+  Jalan (nama jalan) (rt/rw/gang), Madiun, Jawa Timur
+- Sistem akan menyeleksi inputan menjadi bentuk array dengan isian baru ['nama alamat', 'nama kabupaten/kota', 'nama provinsi']
+- Pertama akan mengecek isian lengkap dari array dengan mencari koordinat pada maps
+- Ketika ditemukan maka akan mengembalikan nilai true, apabila mengembalikan nilai false, maka akan mencari index 1 dari array. Index 1 digunakan untuk menyesuaikan apakah kota/kabupaten berada di Madiun
+- Lalu sistem akan mengebalikan nilai true / false
+- Tombol awal bernilai 'cek alamat', ketika mengembalikan nilai true, maka akan ganti buttonnya menjadi 'submit'

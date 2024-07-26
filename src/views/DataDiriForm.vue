@@ -1,19 +1,39 @@
 <script setup>
 import { defineEmits, ref } from "vue";
+import store from "@/auth/auth";
+import { checkCoordinate } from "@/controllers/PemesananController";
+
+const authStore = store();
 
 const emit = defineEmits(["submitForm"]);
-
-const formData = ref({
-  slide: 2,
-});
 
 const props = defineProps({
   slide: Number,
   formData: Object,
 });
 
-const handleSubmit = () => {
+const formData = ref({
+  slide: props.slide,
+  nama_lengkap: authStore.nama,
+});
+
+const status = ref(false);
+
+const coordinateState = async () => {
+  let check = await checkCoordinate(formData.value);
+
+  if (check) {
+    formData.value.slide = 2;
+    status.value = true;
+  } else {
+    alert("Anda tidak dapat memesan, karena diluar jangkauan wilayah Madiun!");
+  }
+};
+
+const handleSubmit = async (event) => {
   emit("submitForm", formData.value);
+
+  if (status) coordinateState();
 };
 </script>
 
@@ -35,8 +55,9 @@ const handleSubmit = () => {
               type="text"
               id="nama_lengkap"
               v-model="formData.nama_lengkap"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-gray-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Tuliskan nama lengkapmu"
+              disabled
             />
           </div>
           <div class="">
@@ -61,13 +82,19 @@ const handleSubmit = () => {
               class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >Alamat</label
             >
-            <input
-              type="text"
-              id="alamat"
-              v-model="formData.alamat"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Tuliskan alamat lengkapmu"
-            />
+            <div class="">
+              <input
+                type="text"
+                id="alamat"
+                v-model="formData.alamat"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Jalan Hayam Wuruk Gg. IV, Madiun, Jawa Timur"
+              />
+              <span class="text-sm font-medium">
+                <span class="text-red-500"> *Format: </span>
+                Jalan Hayam Wuruk (rt rw/ gg), Madiun, Jawa Timur
+              </span>
+            </div>
           </div>
           <div class="">
             <label
@@ -88,6 +115,15 @@ const handleSubmit = () => {
         <div class="mt-10 text-end">
           <button
             type="submit"
+            v-if="!status"
+            @click="handleSubmit('next')"
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-full md:w-fit px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Cek Alamat
+          </button>
+          <button
+            type="submit"
+            v-if="status"
             @click="handleSubmit('next')"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm sm:w-full md:w-fit px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >

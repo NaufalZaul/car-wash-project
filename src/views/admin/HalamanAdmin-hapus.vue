@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import store from "@/auth/auth";
 import { RouterLink, RouterView } from "vue-router";
+import store from "@/auth/auth";
 
 let authStore = store();
 </script>
 
 <template>
-  <div class="" v-if="authStore.token != null">
+  <div class="hidden" v-if="authStore.token != null">
     <button
       data-drawer-target="sidebar-multi-level-sidebar"
       data-drawer-toggle="sidebar-multi-level-sidebar"
@@ -61,7 +61,7 @@ let authStore = store();
               <span class="ms-3">Beranda</span>
             </RouterLink>
           </li>
-          <li>
+          <li v-if="authStore.role == 'admin'">
             <RouterLink
               to="/admin/layanan"
               class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
