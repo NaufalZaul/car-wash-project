@@ -1,15 +1,20 @@
 <script setup>
+import { getDataPackage } from "@/controllers/AdminController";
 import { getDataService } from "@/controllers/PemesananController";
 import { defineEmits, onMounted, ref } from "vue";
 
 let tipeMobil = [];
 let layanan = [];
+let layananTambahan = [];
 const formData = ref({});
 
 onMounted(async () => {
   let data = await getDataService();
+  let dataPackage = await getDataPackage();
+
   tipeMobil = data.tipeMobil;
   layanan = data.layanan;
+  layananTambahan = dataPackage;
 });
 
 function formatRupiah(number) {
@@ -141,28 +146,40 @@ const handleSubmit = (button) => {
                 </div>
               </label>
             </li>
-            <!-- <li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="mb-5">
+          <h1 class="font-semibold text-lg">Jenis Layanan Tambahan</h1>
+        </div>
+        <div class="mb-5">
+          <ul class="grid w-full gap-3 md:grid-cols-4">
+            <li v-for="(item, index) in layananTambahan" :key="index">
               <input
                 type="radio"
-                id="express-glow"
-                name="jenis_layanan"
-                value="express-glow"
-                v-model="formData.jenis_layanan"
+                :id="`tambahan-${index}`"
+                name="jenis_layanan_tambahan"
+                :value="item.id"
+                v-model="formData.jenis_layanan_tambahan"
                 class="hidden peer"
               />
               <label
-                for="express-glow"
-                class="inline-flex justify-between w-full h-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
+                :for="`tambahan-${index}`"
+                class="inline-flex justify-between w-full h-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-white peer-checked:bg-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700"
               >
                 <div class="block">
                   <div class="w-full text-lg font-semibold">
-                    Rp 25.000 - Rp 40.000
+                    {{ formatRupiah(item.harga) }}
                   </div>
-                  <div class="w-full font-medium mb-3">Express Glow</div>
-                  <div class="w-full">Cuci Interior & Cuci Exterior</div>
+                  <div class="w-full font-medium mb-3">
+                    {{ item.jenis_kaca }}
+                  </div>
+                  <div class="w-full capitalize">{{ item.merk_kaca }}</div>
                 </div>
               </label>
-            </li> -->
+            </li>
           </ul>
         </div>
       </div>

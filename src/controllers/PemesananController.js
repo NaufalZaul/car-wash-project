@@ -41,6 +41,24 @@ const getJenisLayanan = async (data) => {
   }
 };
 
+const getLayananTambahan = async (data) => {
+  try {
+    const response = await fetch("http://127.0.0.1:8000/api/package");
+    const result = await response.json();
+    if (response.ok) {
+      return result.data.data.find((item) => {
+        if (item.id == data.jenis_layanan_tambahan)
+          return item;
+      });
+    } else {
+      console.error("Error fetching services");
+    }
+  } catch (error) {
+    console.error("Fetch error: ", error);
+  }
+
+}
+
 const cleaningAddress = async (address) => {
   let splittingAddress = address.alamat.split(',');
   let cleanedWhiteSpace = splittingAddress.map(address => address.trimStart());
@@ -102,4 +120,4 @@ const checkCoordinate = async (address) => {
   }
 }
 
-export { getDataService, getJenisLayanan, checkCoordinate };
+export { getDataService, getJenisLayanan, getLayananTambahan, checkCoordinate };

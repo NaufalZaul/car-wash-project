@@ -11,6 +11,7 @@ const submitBooking = async (data) => {
         booking_time: `${data.waktu_pencucian}:00`,
         booking_date: data.tanggal_pencucian,
         id_service: data.jenis_layanan,
+        id_package: data.jenis_layanan_tambahan,
         status: "scheduled",
       }),
     });

@@ -6,7 +6,7 @@ import LayananForm from "./LayananForm.vue";
 import PemesananForm from "./PemesananForm.vue";
 
 const formData = ref({
-  slide: 1,
+  slide: 2,
 });
 
 const handleFormSubmit = (data) => {

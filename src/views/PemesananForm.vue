@@ -1,9 +1,13 @@
 <script setup>
 import submitBooking from "@/controllers/BookingController";
-import { getJenisLayanan } from "@/controllers/PemesananController";
+import {
+  getJenisLayanan,
+  getLayananTambahan,
+} from "@/controllers/PemesananController";
 import { defineEmits, onMounted, ref } from "vue";
 
 let dataLayanan = {};
+let dataLayananTambahan = {};
 const dataFetched = ref(false);
 const formData = ref({});
 
@@ -14,7 +18,9 @@ const props = defineProps({
 
 onMounted(async () => {
   dataLayanan = await getJenisLayanan(props.formData);
-  if (dataLayanan != {}) return (dataFetched.value = true);
+  dataLayananTambahan = await getLayananTambahan(props.formData);
+  if (dataLayanan != {} && dataLayananTambahan != {})
+    return (dataFetched.value = true);
 });
 
 const emit = defineEmits(["submitForm"]);
@@ -152,7 +158,41 @@ const handleSubmit = (button) => {
             </div>
           </div>
         </div>
-        <div class="">
+        <div class="grid grid-cols-3 gap-5 mb-5">
+          <template v-if="!!dataLayananTambahan">
+            <div class="" v-if="dataFetched">
+              <label
+                for="jenis_layanan"
+                class="block mb-2 text-sm text-gray-900 dark:text-white"
+                >Merk Kaca</label
+              >
+              <input
+                type="text"
+                id="jenis_layanan"
+                name="id_service"
+                class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
+                :value="dataLayananTambahan.merk_kaca"
+                disabled
+              />
+            </div>
+            <div class="" v-if="dataFetched">
+              <label
+                for="harga_layanan"
+                class="block mb-2 text-sm text-gray-900 dark:text-white"
+                >Harga Layanan Tambahan</label
+              >
+              <div class="flex">
+                <p class="text-bold me-2">Rp</p>
+                <input
+                  type="number"
+                  id="harga_layanan"
+                  class="bg-transparent border-0 text-gray-900 text-xl font-semibold p-0"
+                  :value="dataLayananTambahan.harga"
+                  disabled
+                />
+              </div>
+            </div>
+          </template>
           <div class="mb-5">
             <label
               for="deskripsi"

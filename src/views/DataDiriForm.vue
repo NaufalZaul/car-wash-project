@@ -26,6 +26,7 @@ const coordinateState = async () => {
     formData.value.slide = 2;
     status.value = true;
   } else {
+    formData.value.slide = 1;
     alert("Anda tidak dapat memesan, karena diluar jangkauan wilayah Madiun!");
   }
 };
