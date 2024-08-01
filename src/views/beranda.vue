@@ -12,22 +12,24 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
       "
     >
       <div
-        class="min-h-screen p-20 backdrop-brightness-50 bg-black/60 text-white flex items-center"
+        class="min-h-screen p-10 md:p-20 backdrop-brightness-50 bg-black/60 text-white flex items-center"
       >
-        <div class="w-3/5 h-full">
-          <h1 class="text-7xl font-semibold capitalize">
+        <div class="w-full md:w-3/5 h-full">
+          <h1
+            class="text-4xl text-center md:text-left md:text-7xl font-semibold capitalize"
+          >
             rawat kendaraan anda bersama kami !
           </h1>
-          <p class="mt-5 text-lg">
+          <p class="mt-5 text-lg text-center md:text-left">
             Kami menyediakan jasa layanan pencucian kendaraan motor maupun
             mobil, dengan harga yang relatif murah dan terjangkau, dengan
             kualitas yang bagus.
           </p>
 
-          <div class="flex mt-12">
+          <div class="flex flex-col items-center md:flex-row mt-12">
             <button
               type="button"
-              class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center me-2"
+              class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-5 md:mb-0"
             >
               <img
                 class="me-2"
@@ -56,10 +58,12 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
       </div>
     </div>
 
-    <div class="min-h-screen p-20">
-      <div class="w-3/4 text-center mx-auto">
-        <h1 class="text-5xl font-medium mb-7">
-          <span class="text-blue-500 font-bold">GLOWMAX</span>
+    <div class="min-h-screen p-10 md:p-20">
+      <div class="w-full md:w-3/4 text-center mx-auto">
+        <h1 class="text-4xl md:text-5xl font-medium mb-7 text-center">
+          <span class="text-5xl md:text-5xl text-blue-500 font-bold"
+            >GLOWMAX</span
+          >
           Garage Madiun
         </h1>
         <p class="text-xl leading-8">
@@ -71,7 +75,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
           nesciunt, enim voluptates vel.
         </p>
       </div>
-      <div class="grid grid-cols-2 gap-20 mt-24">
+      <div class="grid md:grid-cols-2 gap-20 mt-24">
         <div class="">
           <h1 class="text-3xl font-semibold mb-5">Tempat Kami Bekerja</h1>
           <p class="text-lg leading-8">
@@ -103,29 +107,20 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
-
-          <!-- <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.8552767984274!2d110.4122349!3d-7.142728699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7087d28129713d%3A0x712c8455b8c6cfaf!2sGlowmaxx%20Carwash%20%26%20Autocare!5e0!3m2!1sen!2sid!4v1717229449246!5m2!1sen!2sid"
-            class="w-full rounded-lg"
-            width="600"
-            height="380"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe> -->
         </div>
       </div>
     </div>
 
     <div
-      class="relative min-h-screen bg-blue-500 grid grid-cols-2 before:absolute before:w-20 before:h-full before:bg-blue-700 before:ms-14 after:absolute after:w-32 after:h-full after:bg-blue-700 after:right-0"
+      class="relative min-h-screen bg-blue-500 md:grid grid-cols-2 md:before:absolute md:before:w-20 md:before:h-full md:before:bg-blue-700 md:before:ms-14 md:after:absolute md:after:w-32 md:after:h-full md:after:bg-blue-700 md:after:right-0"
     >
-      <div class="p-20 z-10">
-        <h1 class="font-semibold text-5xl mb-5">
+      <div class="p-10 md:p-20 z-10">
+        <h1
+          class="font-semibold text-3xl text-center md:text-left md:text-5xl mb-5"
+        >
           Kualitas Kebersihan Merupakan Prioritas Kami
         </h1>
-        <p class="text-lg">
+        <p class="text-lg text-center md:text-left">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores sit
           dolore sequi. Saepe inventore atque ex consequatur. Consequatur nisi
           earum aspernatur, voluptas, magni odit porro impedit voluptates
@@ -148,7 +143,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
           </li>
         </ul>
       </div>
-      <div class="flex items-center ps-20 md:ps-0 p-20 z-10">
+      <div class="hidden md:flex items-center ps-20 md:ps-0 p-20 z-10">
         <img
           class="h-[25rem] w-full object-cover rounded-xl"
           src="/public/WhatsApp Image 2024-07-09 at 11.53.32_9783b70d.jpg"
@@ -157,17 +152,19 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
       </div>
     </div>
 
-    <div class="min-h-screen p-20">
+    <div class="min-h-screen p-10 md:p-20">
       <div class="text-center mx-auto mb-10">
-        <h1 class="text-5xl font-semibold mb-5 capitalize">Layanan kami</h1>
+        <h1 class="text-3xl md:text-5xl font-semibold mb-5 capitalize">
+          Layanan kami
+        </h1>
         <p class="text-lg">
           Beberapa layanan yang kami berikan untuk pelanggan
         </p>
       </div>
-      <div class="grid justify-center grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="grid justify-center md:grid-cols-3 gap-4">
         <div class="relative">
           <img
-            class="h-80 object-cover w-full rounded-lg"
+            class="h-72 md:h-80 object-cover w-full rounded-lg"
             src="/public/WhatsApp Image 2024-07-09 at 11.53.16_dfb19437.jpg"
             alt=""
           />
@@ -183,7 +180,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="relative">
           <img
-            class="h-80 object-cover w-full rounded-lg"
+            class="h-72 md:h-80 object-cover w-full rounded-lg"
             src="/public/WhatsApp Image 2024-07-09 at 11.52.55_4ae0ef65.jpg"
             alt=""
           />
@@ -199,7 +196,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="relative">
           <img
-            class="h-80 object-cover w-full rounded-lg"
+            class="h-72 md:h-80 object-cover w-full rounded-lg"
             src="/public/WhatsApp Image 2024-07-09 at 11.53.32_f9e3382d.jpg"
             alt=""
           />
@@ -215,7 +212,7 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         </div>
         <div class="relative">
           <img
-            class="h-80 object-cover w-full rounded-lg"
+            class="h-72 md:h-80 object-cover w-full rounded-lg"
             src="/public/WhatsApp Image 2024-07-09 at 11.53.17_30d9ac11.jpg"
             alt=""
           />
@@ -232,11 +229,13 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
       </div>
     </div>
 
-    <div class="min-h-screen bg-blue-500 p-20">
-      <h1 class="text-5xl text-center font-semibold capitalize">
+    <div class="min-h-screen bg-blue-500 p-10 md:p-20">
+      <h1 class="text-3xl md:text-5xl text-center font-semibold capitalize">
         Harga yang kami tawarkan
       </h1>
-      <div class="md:w-fit mx-auto grid grid-cols-4 gap-2 justify-center mt-20">
+      <div
+        class="md:w-fit mx-auto grid md:grid-cols-4 gap-2 justify-center mt-14 md:mt-20"
+      >
         <card-prize-component
           judul="EXPRESS GLOW"
           harga="25.000"
@@ -270,15 +269,19 @@ import CardPrizeComponent from "@/components/CardPrizeComponent.vue";
         />
       </div>
     </div>
-    <div class="p-20 text-center">
-      <h1 class="text-4xl text-center font-semibold mb-5 capitalize">
+    <div class="p-10 md:p-20 text-center">
+      <h1
+        class="text-3xl md:text-4xl text-center font-semibold mb-5 capitalize"
+      >
         Hubungi kami melalui sosial media
       </h1>
-      <p>
+      <p class="text-lg">
         Kami siap melayani anda setiap saat untuk memberikan jasa layanan
         pencucian motor dan mobil
       </p>
-      <div class="flex items-center justify-center gap-10 mt-10">
+      <div
+        class="flex flex-col md:flex-row items-center justify-center gap-10 mt-10"
+      >
         <div class="flex items-center">
           <img
             width="50"

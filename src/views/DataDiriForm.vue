@@ -39,13 +39,13 @@ const handleSubmit = async (event) => {
 </script>
 
 <template>
-  <div :class="props.slide == 1 ? 'w-full mx-auto p-10' : 'hidden'">
+  <div :class="props.slide == 1 ? 'w-full mx-auto p-6 md:p-10' : 'hidden'">
     <form @submit.prevent="handleSubmit">
       <div class="">
         <div class="mb-5">
           <h1 class="font-semibold text-lg">Informasi Pribadi</h1>
         </div>
-        <div class="grid grid-cols-2 gap-5 mb-5">
+        <div class="grid md:grid-cols-2 gap-5 mb-5">
           <div class="">
             <label
               for="nama_lengkap"
@@ -71,12 +71,12 @@ const handleSubmit = async (event) => {
               type="email"
               id="email"
               v-model="formData.email"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-slate-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Tuliskan emailmu"
             />
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-5 mb-5">
+        <div class="grid md:grid-cols-2 gap-5 mb-5">
           <div class="">
             <label
               for="alamat"
@@ -88,7 +88,7 @@ const handleSubmit = async (event) => {
                 type="text"
                 id="alamat"
                 v-model="formData.alamat"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-slate-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Jalan Hayam Wuruk Gg. IV, Madiun, Jawa Timur"
               />
               <span class="text-sm font-medium">
@@ -107,7 +107,7 @@ const handleSubmit = async (event) => {
               type="number"
               id="no_telp"
               v-model="formData.no_telp"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              class="bg-slate-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Tuliskan nomor telepon"
             />
           </div>

@@ -11,16 +11,16 @@ const loginSystem = async () => {
 </script>
 
 <template>
-  <div id="login" class="min-h-screen bg-slate-950 flex justify-center p-8">
+  <div id="login" class="h-screen bg-slate-950 flex justify-center p-4 md:p-8">
     <div
-      class="w-1/2 flex items-center justify-center bg-white border-e p-5 rounded-s-xl"
+      class="w-full self-center md:self-auto md:w-1/2 flex items-center justify-center bg-white border-e p-5 rounded-xl md:rounded-none md:rounded-s-xl"
     >
       <div
         class="w-full bg-white dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
       >
         <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
           <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            class="text-2xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white"
           >
             Sign in to your account
           </h1>
@@ -72,7 +72,7 @@ const loginSystem = async () => {
       </div>
     </div>
     <div
-      class="w-2/3 bg-white rounded-e-xl"
+      class="hidden md:block w-2/3 bg-white rounded-e-xl"
       style="
         background: #ffffff url(/public/car_wash_corousel.png) left top/cover
           no-repeat;

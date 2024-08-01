@@ -30,7 +30,7 @@ onMounted(async () => {
       >
         <div class="">
           <h1
-            class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
+            class="text-gray-900 dark:text-white text-2xl md:text-3xl font-extrabold mb-2"
           >
             Kelola data layanan
           </h1>
@@ -81,7 +81,7 @@ onMounted(async () => {
       >
         <div class="">
           <h1
-            class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
+            class="text-gray-900 dark:text-white text-2xl md:text-3xl font-extrabold mb-2"
           >
             Kelola data layanan tambahan
           </h1>

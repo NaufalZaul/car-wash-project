@@ -28,7 +28,6 @@ const openModal = {
 };
 
 onMounted(async () => {
-  console.log(authStore.nama);
   dataService = await getDataService();
 
   if (dataService.length != 0) {
@@ -89,12 +88,13 @@ const exportData = async () => {
           </div>
         </div>
       </div>
+
       <div
         class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
       >
         <div class="mb-5">
           <h1
-            class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
+            class="text-gray-900 dark:text-white text-2xl md:text-3xl font-extrabold mb-2"
           >
             Status Pencucian Kendaraan
           </h1>

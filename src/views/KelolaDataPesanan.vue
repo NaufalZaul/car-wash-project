@@ -72,7 +72,7 @@ onMounted(async () => {
       >
         <div class="mb-5">
           <h1
-            class="text-gray-900 dark:text-white text-3xl md:text-3xl font-extrabold mb-2"
+            class="text-gray-900 dark:text-white text-2xl md:text-3xl font-extrabold mb-2"
           >
             Status Pencucian Kendaraan
           </h1>

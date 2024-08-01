@@ -42,13 +42,13 @@ const handleSubmit = (button) => {
 </script>
 
 <template>
-  <div :class="props.slide == 2 ? 'w-full mx-auto p-10' : 'hidden'">
+  <div :class="props.slide == 2 ? 'w-full mx-auto p-6 md:p-10' : 'hidden'">
     <form @submit.prevent="handleSubmit">
       <div class="">
         <div class="mb-5">
           <h1 class="font-semibold text-lg">Informasi Layanan</h1>
         </div>
-        <div class="grid grid-cols-3 gap-5 mb-5">
+        <div class="grid md:grid-cols-3 gap-5 mb-5">
           <div class="">
             <label
               for="countries"

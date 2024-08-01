@@ -25,7 +25,7 @@
             >Lorem ipsum dolor sit amet consectetur adipisicing.</span
           >
         </div>
-        <div class="w-2/6">
+        <div class="mt-8 md:w-2/6 md:mt-0">
           <div class="flex items-end font-bold mb-2">
             <img
               class="me-1"
